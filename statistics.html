@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://127.0.0.1:8000/statistics/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="./statistics_files/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./statistics_files/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f7fd; }
+        .sidebar { height: 100vh; background: white; border-right: 1px solid #eee; position: fixed; width: 240px; }
+        .nav-link { color: #666; padding: 12px 25px; }
+        .nav-link.active { color: #6f42c1; background: #f3effb; border-radius: 0 25px 25px 0; }
+        .main-content { margin-left: 240px; padding: 30px; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* 1. Smooth Transitions for Nav Links */
+.nav-link {
+    color: #666;
+    padding: 12px 25px;
+    transition: all 0.3s ease; /* Smooth hover effect */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Hover Animation: Slide and Color Change */
+.nav-link:hover {
+    color: #6f42c1;
+    padding-left: 35px; /* Subtle slide to the right */
+    background: #f8f7fd;
+}
+
+/* 3. Active Link Animation */
+.nav-link.active {
+    color: #6f42c1;
+    background: #f3effb;
+    border-radius: 0 25px 25px 0;
+    font-weight: 600;
+}
+
+
+<!--/* 5. Staggered Link Fade-In */-->
+<!--@keyframes linkFade {-->
+<!--    from { opacity: 0; transform: translateX(-10px); }-->
+<!--    to { opacity: 1; transform: translateX(0); }-->
+<!--}-->
+
+<!--.nav-link {-->
+<!--    opacity: 0;-->
+<!--    animation: linkFade 0.5s ease forwards;-->
+<!--}-->
+
+<!--.nav-link:nth-child(1) { animation-delay: 0.2s; }-->
+<!--.nav-link:nth-child(2) { animation-delay: 0.3s; }-->
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4 class="p-4 fw-bold" style="color: #6f42c1;">Personality AI</h4>
+        <nav class="nav flex-column mt-3">
+            <a class="nav-link " href="http://127.0.0.1:8000/"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link " href="http://127.0.0.1:8000/statistics">
+        <i class="bi bi-graph-up-arrow me-2"></i> Data Statistics
+    </a>
+            <a class="nav-link " href="http://127.0.0.1:8000/check"><i class="bi bi-person-check me-2"></i> Check Personality</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        
+<div class="container-fluid py-4">
+    <h3 class="fw-bold mb-4" style="color: #6f42c1;">Dataset Analysis</h3>
+
+    <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="bg-light">
+                    <tr class="small text-muted text-uppercase">
+                        <th>Trait Variable</th>
+                        <th>Average (Mean)</th>
+                        <th>Standard Deviation</th>
+                        <th>Min</th>
+                        <th>Max</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td><strong>Social_Energy</strong></td>
+                        <td>5.51</td>
+                        <td>2.47</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Alone_Time_Preference</strong></td>
+                        <td>5.45</td>
+                        <td>2.49</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Talkativeness</strong></td>
+                        <td>5.53</td>
+                        <td>2.49</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Deep_Reflection</strong></td>
+                        <td>5.96</td>
+                        <td>2.16</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Group_Comfort</strong></td>
+                        <td>6.01</td>
+                        <td>2.18</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Party_Liking</strong></td>
+                        <td>5.04</td>
+                        <td>2.81</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Listening_Skill</strong></td>
+                        <td>6.96</td>
+                        <td>1.65</td>
+                        <td>1.31</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Empathy</strong></td>
+                        <td>6.48</td>
+                        <td>1.53</td>
+                        <td>0.8</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Creativity</strong></td>
+                        <td>6.0</td>
+                        <td>1.5</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Organization</strong></td>
+                        <td>5.97</td>
+                        <td>1.7</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Leadership</strong></td>
+                        <td>6.02</td>
+                        <td>2.17</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Risk_Taking</strong></td>
+                        <td>5.01</td>
+                        <td>2.19</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Public_Speaking_Comfort</strong></td>
+                        <td>5.51</td>
+                        <td>2.47</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Curiosity</strong></td>
+                        <td>6.5</td>
+                        <td>1.54</td>
+                        <td>0.64</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Routine_Preference</strong></td>
+                        <td>5.45</td>
+                        <td>1.93</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Excitement_Seeking</strong></td>
+                        <td>5.53</td>
+                        <td>2.49</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Friendliness</strong></td>
+                        <td>6.98</td>
+                        <td>1.66</td>
+                        <td>0.99</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Emotional_Stability</strong></td>
+                        <td>6.02</td>
+                        <td>1.49</td>
+                        <td>0.44</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Planning</strong></td>
+                        <td>5.99</td>
+                        <td>1.7</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Spontaneity</strong></td>
+                        <td>5.5</td>
+                        <td>1.92</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Adventurousness</strong></td>
+                        <td>5.03</td>
+                        <td>2.2</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Reading_Habit</strong></td>
+                        <td>5.94</td>
+                        <td>2.17</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Sports_Interest</strong></td>
+                        <td>5.49</td>
+                        <td>1.93</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Online_Social_Usage</strong></td>
+                        <td>6.5</td>
+                        <td>1.89</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Travel_Desire</strong></td>
+                        <td>5.51</td>
+                        <td>1.93</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Gadget_Usage</strong></td>
+                        <td>6.01</td>
+                        <td>1.68</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Work_Style_Collaborative</strong></td>
+                        <td>6.5</td>
+                        <td>1.89</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Decision_Speed</strong></td>
+                        <td>5.52</td>
+                        <td>1.94</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><strong>Stress_Handling</strong></td>
+                        <td>5.98</td>
+                        <td>1.49</td>
+                        <td>0.0</td>
+                        <td>10.0</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+</body></html>

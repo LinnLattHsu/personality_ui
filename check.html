@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)http://127.0.0.1:8000/check/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f7fd; }
+        .sidebar { height: 100vh; background: white; border-right: 1px solid #eee; position: fixed; width: 240px; }
+        .nav-link { color: #666; padding: 12px 25px; }
+        .nav-link.active { color: #6f42c1; background: #f3effb; border-radius: 0 25px 25px 0; }
+        .main-content { margin-left: 240px; padding: 30px; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        /* 1. Smooth Transitions for Nav Links */
+.nav-link {
+    color: #666;
+    padding: 12px 25px;
+    transition: all 0.3s ease; /* Smooth hover effect */
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Hover Animation: Slide and Color Change */
+.nav-link:hover {
+    color: #6f42c1;
+    padding-left: 35px; /* Subtle slide to the right */
+    background: #f8f7fd;
+}
+
+/* 3. Active Link Animation */
+.nav-link.active {
+    color: #6f42c1;
+    background: #f3effb;
+    border-radius: 0 25px 25px 0;
+    font-weight: 600;
+}
+
+
+<!--/* 5. Staggered Link Fade-In */-->
+<!--@keyframes linkFade {-->
+<!--    from { opacity: 0; transform: translateX(-10px); }-->
+<!--    to { opacity: 1; transform: translateX(0); }-->
+<!--}-->
+
+<!--.nav-link {-->
+<!--    opacity: 0;-->
+<!--    animation: linkFade 0.5s ease forwards;-->
+<!--}-->
+
+<!--.nav-link:nth-child(1) { animation-delay: 0.2s; }-->
+<!--.nav-link:nth-child(2) { animation-delay: 0.3s; }-->
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4 class="p-4 fw-bold" style="color: #6f42c1;">Personality AI</h4>
+        <nav class="nav flex-column mt-3">
+            <a class="nav-link " href="http://127.0.0.1:8000/"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+            <a class="nav-link " href="http://127.0.0.1:8000/statistics">
+        <i class="bi bi-graph-up-arrow me-2"></i> Data Statistics
+    </a>
+            <a class="nav-link active" href="http://127.0.0.1:8000/check"><i class="bi bi-person-check me-2"></i> Check Personality</a>
+        </nav>
+    </div>
+    <div class="main-content">
+        
+<style>
+    :root {
+        --primary-purple: #6f42c1;
+        --light-purple: #f8f7fd;
+        --soft-shadow: 0 10px 30px rgba(111, 66, 193, 0.05);
+    }
+
+    body { background-color: var(--light-purple); }
+    html{
+    scroll-behavior: smooth;
+    }
+
+    .main-card {
+        border-radius: 24px;
+        border: none;
+        box-shadow: var(--soft-shadow);
+        background: #ffffff;
+    }
+
+    /* Modern Glassy Trait Card */
+    .trait-card {
+        background: #ffffff;
+        border: 1px solid #eee;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        padding: 1.25rem;
+    }
+
+    .trait-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--primary-purple);
+        box-shadow: 0 5px 15px rgba(111, 66, 193, 0.1);
+    }
+
+    /* Custom Range Slider Styling */
+<!--    .form-range::-webkit-slider-thumb { background: var(&#45;&#45;primary-purple); }-->
+<!--    .form-range::-moz-range-thumb { background: var(&#45;&#45;primary-purple); }-->
+<!--    .form-range::-ms-thumb { background: var(&#45;&#45;primary-purple); }-->
+    /* Fix for the slider track (the line) */
+
+
+
+.form-range::-moz-range-track {
+    background-color: #e9ecef;
+    height: 0.5rem;
+    border-radius: 1rem;
+}
+
+    /* Visible Track */
+.form-range::-webkit-slider-runnable-track {
+    background: #e9ecef;
+    height: 6px;
+    border-radius: 3px;
+}
+
+/* Dynamic Thumb Color based on value (Handled by JS below) */
+.form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--thumb-color, #6f42c1);
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-top: -6px;
+    transition: background 0.3s ease;
+}
+
+/* Category Headers */
+.category-title {
+    color: #4a5568;
+    font-size: 1.1rem;
+    border-left: 4px solid #6f42c1;
+    padding-left: 10px;
+    margin: 2rem 0 1rem 0;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #6f42c1 !important;
+    border: none;
+}
+
+    .badge-value {
+        min-width: 35px;
+        font-weight: 700;
+        background-color: var(--primary-purple) !important;
+    }
+
+    .predict-btn {
+        background: linear-gradient(135deg, #8e44ad, #6f42c1);
+        border: none;
+        padding: 15px 40px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: transform 0.2s;
+    }
+
+    .predict-btn:hover {
+        transform: scale(1.02);
+        opacity: 0.9;
+    }
+
+    /* Result Cards */
+    .result-card {
+        border-radius: 18px;
+        background: #fff;
+        transition: 0.3s;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="card main-card mx-auto" style="max-width: 1100px;">
+        <div class="card-body p-4 p-md-5">
+
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="color: var(--primary-purple);">Personality Analysis</h2>
+                <p class="text-muted">Adjust the sliders to reflect your natural tendencies (1-10)</p>
+            </div>
+                <form method="POST" action="http://127.0.0.1:8000/check/#results-section">
+    <input type="hidden" name="csrfmiddlewaretoken" value="IQWZO9OhsUDYCpjM9eF0ZPt3nKYVn5gmbhlt1BoZydSz8uvxKcUZsOUqlyZ1Yyrd">
+
+    
+        
+        <h5 class="category-title fw-bold mt-5 mb-3">Social &amp; Engagement</h5>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">SOCIAL ENERGY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="social_energy" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">TALKATIVENESS</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="talkativeness" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">GROUP COMFORT</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="group_comfort" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">PARTY LIKING</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="party_liking" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">PUBLIC SPEAKING COMFORT</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="public_speaking_comfort" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">FRIENDLINESS</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="friendliness" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">ONLINE SOCIAL USAGE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="online_social_usage" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    
+        
+        <h5 class="category-title fw-bold mt-5 mb-3">Mindset &amp; Reflection</h5>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">DEEP REFLECTION</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="deep_reflection" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">CREATIVITY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="creativity" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">CURIOSITY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="curiosity" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">READING HABIT</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="reading_habit" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    
+        
+        <h5 class="category-title fw-bold mt-5 mb-3">Work &amp; Decision Making</h5>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">ORGANIZATION</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="organization" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">LEADERSHIP</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="leadership" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">PLANNING</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="planning" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">WORK STYLE COLLABORATIVE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="work_style_collaborative" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">DECISION SPEED</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="decision_speed" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">ROUTINE PREFERENCE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="routine_preference" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    
+        
+        <h5 class="category-title fw-bold mt-5 mb-3">Emotional Intelligence</h5>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">EMPATHY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="empathy" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">LISTENING SKILL</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="listening_skill" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">EMOTIONAL STABILITY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="emotional_stability" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">STRESS HANDLING</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="stress_handling" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    
+        
+        <h5 class="category-title fw-bold mt-5 mb-3">Lifestyle &amp; Adventure</h5>
+        <div class="row g-4">
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">ALONE TIME PREFERENCE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="alone_time_preference" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">RISK TAKING</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="risk_taking" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">EXCITEMENT SEEKING</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="excitement_seeking" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">SPONTANEITY</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="spontaneity" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">ADVENTUROUSNESS</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="adventurousness" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">SPORTS INTEREST</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="sports_interest" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">TRAVEL DESIRE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="travel_desire" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-lg-4">
+                <div class="trait-card h-100">
+                    <label class="form-label fw-bold text-dark trait-label">GADGET USAGE</label>
+                    <div class="d-flex align-items-center gap-3">
+                        <input type="range" name="gadget_usage" class="form-range heat-slider" min="1" max="10" step="1" value="5" oninput="updateSlider(this)" style="--thumb-color: rgb(120, 137, 216);">
+                        <span class="badge rounded-pill badge-value shadow-sm" style="background-color: rgb(120, 137, 216);">5</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+    
+        
+    
+
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-primary btn-lg predict-btn shadow rounded-pill">
+            Check My Personality
+        </button>
+    </div>
+</form>
+
+
+
+            
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function updateSlider(slider) {
+        const val = slider.value;
+        const badge = slider.nextElementSibling;
+        badge.innerText = val;
+
+        // "Heat Map" Calculation: Teal (Low) to Purple (High)
+        const r = Math.floor(45 + (val * 15));
+        const g = Math.floor(212 - (val * 15));
+        const b = Math.floor(191 + (val * 5));
+        const color = `rgb(${r}, ${g}, ${b})`;
+
+        slider.style.setProperty('--thumb-color', color);
+        badge.style.backgroundColor = color;
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fix the labels to be pretty
+        document.querySelectorAll('.trait-label').forEach(el => {
+            el.innerText = el.innerText.replace(/_/g, ' ').toUpperCase();
+        });
+
+        // Set initial colors for all sliders
+        document.querySelectorAll('.heat-slider').forEach(s => updateSlider(s));
+    });
+</script>
+
+    </div>
+
+</body></html>
